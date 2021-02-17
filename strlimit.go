@@ -16,6 +16,10 @@ func LimitBytes(s string, limit int) string {
 // and append a given end string.
 // The bytes of a returned string is a given limit bytes or lower.
 func LimitBytesWithEnd(s string, limit int, end string) string {
+	if len(s) <= limit {
+		return s
+	}
+
 	var b strings.Builder
 	rem := limit - len(end)
 

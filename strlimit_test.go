@@ -49,19 +49,19 @@ func TestLimitBytesWithEnd(t *testing.T) {
 			name: "basic",
 			args: args{
 				s:     "Hello, 世界", // "Hello, " is 7 bytes and "世" "界" are 3 bytes.
-				limit: 13,
-				end:   "...",
+				limit: 12,
+				end:   "..",
 			},
-			want: "Hello, 世...",
+			want: "Hello, 世..",
 		},
 		{
 			name: "rune-safe",
 			args: args{
 				s:     "Hello, 世界",
-				limit: 15,
+				limit: 9,
 				end:   "...",
 			},
-			want: "Hello, 世...",
+			want: "Hello,...",
 		},
 		{
 			name: "surplus bytes",
