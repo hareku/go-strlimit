@@ -33,3 +33,32 @@ func LimitBytesWithEnd(s string, limit int, end string) string {
 
 	return b.String()
 }
+
+// LimitRunes limits the number of runes in a string.
+// The number of runes of a returned string is a given limit or lower.
+func LimitRunes(s string, limit int) string {
+	return LimitRunesWithEnd(s, limit, "")
+}
+
+// LimitRunesWithEnd limits the number of runes in a string,
+// and append a given end string.
+// The number of runes of a returned string is a given limit or lower.
+func LimitRunesWithEnd(s string, limit int, end string) string {
+	strRunes := utf8.RuneCountInString(s)
+	if strRunes <= limit {
+		return s
+	}
+
+	rem := limit - utf8.RuneCountInString(end)
+
+	var b strings.Builder
+	for _, r := range s {
+		if rem == 0 {
+			break
+		}
+		b.WriteRune(r)
+		rem--
+	}
+	b.WriteString(end)
+	return b.String()
+}
